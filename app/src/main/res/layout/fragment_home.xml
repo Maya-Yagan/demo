@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/ivWeatherImage"
-            android:layout_width="150dp"
-            android:layout_height="170dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:src="@drawable/sun"
             app:layout_constraintBottom_toTopOf="@+id/rvWeatherRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/temperature"
             android:textSize="24sp"
+            android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@+id/rvWeatherRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +48,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvWeatherRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.674" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTemperature" />
 
         <TextView
             android:id="@+id/tvError"
@@ -76,17 +75,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/tvWeatherCondition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/weather_condition"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvTemperature"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivWeatherImage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

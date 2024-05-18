@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
         viewModel.weatherData.observe(viewLifecycleOwner) { list ->
             list?.let {
                 adapter.updateList(it)
+                binding.tvTemperature.text = "${it.current.temperature_2m}°C"
+                binding.tvTimeZone.text = it.timezone
             }
         }
 

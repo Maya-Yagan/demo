@@ -20,22 +20,8 @@ class MainViewModel() : ViewModel() {
         weatherLoading.value = true
         api.getData().enqueue(object : Callback<WeatherResponse>{
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { weatherResponse ->
-                        val dailyWeatherList = weatherResponse.daily.time.indices.map { index ->
-                            DailyWeather(
-                                time = listOf(weatherResponse.daily.time[index]),
-                                weather_code = listOf(weatherResponse.daily.weather_code[index]),
-                                temperature_2m_max = listOf(weatherResponse.daily.temperature_2m_max[index]),
-                                temperature_2m_min = listOf(weatherResponse.daily.temperature_2m_min[index])
-                            )
-                        }
-                        weatherData.value = dailyWeatherList
-                        weatherError.value = false
-                    }
-                } else {
-                    weatherError.value = true
-                }
+                weatherData.value = response.body()
+                weatherError.value = false
                 weatherLoading.value = false
             }
 

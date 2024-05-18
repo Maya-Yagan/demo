@@ -24,7 +24,8 @@ data class WeatherResponse(
     val current_units: WeatherUnits,
     val current: CurrentWeather,
     val daily_units: WeatherUnits,
-    val daily: DailyWeather
+    val daily: DailyWeather,
+    val timezone: String
 )
 
 data class WeatherUnits(
