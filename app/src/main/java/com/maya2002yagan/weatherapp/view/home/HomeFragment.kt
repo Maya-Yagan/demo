@@ -35,8 +35,13 @@ class HomeFragment : Fragment() {
         viewModel.weatherData.observe(viewLifecycleOwner) { list ->
             list?.let {
                 adapter.updateList(it)
-                binding.tvTemperature.text = "${it.current.temperature_2m}°C"
+                binding.tvTemperature.text = "${it.current.temperature_2m}${it.current_units.temperature_2m}"
                 binding.tvTimeZone.text = it.timezone
+                binding.tvCloudCover.text = "${it.current.cloud_cover}${it.current_units.cloud_cover}"
+                binding.tvApparentTemperature.text = "${it.current.apparent_temperature}${it.current_units.apparent_temperature}"
+                binding.tvHumidity.text = "${it.current.relative_humidity_2m}${it.current_units.relative_humidity_2m}"
+                binding.tvWindDirection.text = "${it.current.wind_direction_10m}${it.current_units.wind_direction_10m}"
+                binding.tvWindSpeed.text = "${it.current.wind_speed_10m}${it.current_units.wind_speed_10m}"
             }
         }
 

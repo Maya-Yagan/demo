@@ -10,4 +10,6 @@
     <string name="time_zone">time zone</string>
     <string name="max">Max:</string>
     <string name="min">Min:</string>
+    <string name="temperature_text">Temperature:</string>
+    <string name="apparent_temperature">Apparent Temperature:</string>
 </resources>
