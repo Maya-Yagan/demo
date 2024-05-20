@@ -33,7 +33,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvWeatherDetailsCard"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="140dp"
             android:layout_margin="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="16dp"
@@ -52,26 +52,24 @@
                     android:id="@+id/tvApparentTemperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginStart="104dp"
+                    android:layout_marginTop="34dp"
                     android:text="@string/temperature"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/tvApparentTemperatureText"
+                    app:layout_constraintStart_toEndOf="@+id/tvMinTemperatureText"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvTemperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="164dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/temperature"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/tvTemperatureText"
+                    app:layout_constraintStart_toEndOf="@+id/tvMaxTemperatureText"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvTemperatureText"
+                    android:id="@+id/tvMaxTemperatureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -81,21 +79,21 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvApparentTemperatureText"
+                    android:id="@+id/tvMinTemperatureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/apparent_temperature"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTemperatureText" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvMaxTemperatureText" />
 
                 <TextView
-                    android:id="@+id/tvWindSpeedText"
+                    android:id="@+id/tvMaxWindSpeedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="1dp"
-                    android:text="Wind Speed:"
+                    android:text="@string/wind_speed_home"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvWindDirectionText" />
 
@@ -103,10 +101,9 @@
                     android:id="@+id/tvCloudCover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-
-                    android:text="50%"
+                    android:layout_marginStart="169dp"
+                    android:layout_marginTop="52dp"
+                    android:text="@string/precipitation_value"
                     app:layout_constraintStart_toEndOf="@+id/tvCloudCoverText"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,10 +111,10 @@
                     android:id="@+id/tvCloudCoverText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="55dp"
                     android:text="Cloud Cover:"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -128,52 +125,50 @@
                     android:layout_marginTop="20dp"
                     android:text="Wind Direction:"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvApparentTemperatureText" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvMinTemperatureText" />
 
                 <TextView
                     android:id="@+id/tvHumidityText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="4dp"
                     android:text="Humidity:"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCloudCoverText"
-                    app:layout_constraintVertical_bias="0.416" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tvWindDirection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="20dp"
-                    android:text="355°"
+                    android:layout_marginStart="153dp"
+                    android:layout_marginTop="72dp"
+                    android:text="NaN°"
                     app:layout_constraintStart_toEndOf="@+id/tvWindDirectionText"
-                    app:layout_constraintTop_toBottomOf="@+id/tvApparentTemperatureText" />
-
-                <TextView
-                    android:id="@+id/tvWindSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="1dp"
-                    android:text="5km/h"
-                    app:layout_constraintStart_toEndOf="@+id/tvWindSpeedText"
-                    app:layout_constraintTop_toBottomOf="@+id/tvWindDirection" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvHumidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="76dp"
-                    android:text="60%"
+                    android:layout_marginStart="188dp"
+                    android:layout_marginTop="116dp"
+                    android:text="@string/precipitation_value"
                     app:layout_constraintStart_toEndOf="@+id/tvHumidityText"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvWindSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginTop="94dp"
+                    android:text="@string/wind_speed"
+                    app:layout_constraintStart_toEndOf="@+id/tvMaxWindSpeedText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvWeatherRecyclerView"
             android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maya2002yagan.weatherapp.R
 import com.maya2002yagan.weatherapp.adapter.WeatherAdapter
@@ -16,7 +17,9 @@ import com.maya2002yagan.weatherapp.viewmodel.MainViewModel
 class HomeFragment : Fragment() {
     private lateinit var viewModel : MainViewModel
     private lateinit var binding : FragmentHomeBinding
-    private var adapter = WeatherAdapter(mutableListOf())
+    private var adapter = WeatherAdapter(mutableListOf()){
+        findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

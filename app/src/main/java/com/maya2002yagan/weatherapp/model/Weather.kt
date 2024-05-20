@@ -1,5 +1,9 @@
 package com.maya2002yagan.weatherapp.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
 data class CurrentWeather(
     val time: String,
     val temperature_2m: Double,
@@ -8,15 +12,20 @@ data class CurrentWeather(
     val weather_code: Int,
     val cloud_cover: Int,
     val wind_speed_10m: Double,
-    val wind_direction_10m: Int
+    val wind_direction_10m: Int,
 )
 
+@Parcelize
 data class DailyWeather(
     val time: List<String>,
     val weather_code: List<Int>,
     val temperature_2m_max: List<Double>,
-    val temperature_2m_min: List<Double>
-)
+    val temperature_2m_min: List<Double>,
+    val uv_index_clear_sky_max: List<Double>,
+    val rain_sum: List<Double>,
+    val precipitation_probability_max: List<Int>,
+    val wind_speed_10m_max: List<Double>
+) : Parcelable
 
 data class WeatherResponse(
     val latitude: Double,
@@ -37,6 +46,6 @@ data class WeatherUnits(
     val weather_code: String,
     val cloud_cover: String,
     val wind_speed_10m: String,
-    val wind_direction_10m: String
+    val wind_direction_10m: String,
 )
 
