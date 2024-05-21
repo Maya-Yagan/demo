@@ -7,23 +7,40 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.maya2002yagan.weatherapp.R
 import com.maya2002yagan.weatherapp.databinding.FragmentDetailBinding
+import com.maya2002yagan.weatherapp.util.ApplicationViewModelFactory
 import com.maya2002yagan.weatherapp.viewmodel.MainViewModel
 
 class DetailFragment : Fragment() {
-    val args : DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
     private lateinit var binding : FragmentDetailBinding
-    private lateinit var viewModel : MainViewModel
+    private val viewModel : MainViewModel by viewModels {
+        ApplicationViewModelFactory(requireActivity().application)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
-        // Inflate the layout for this fragment
+        viewModel.findByID(args.WeatherDetails.id)
+        initUI()
         return binding.root
+    }
+
+    private fun initUI(){
+        viewModel.weather.observe(viewLifecycleOwner){ weather ->
+            weather?.daily?.let {
+                with(binding) {
+                    tvMaxTemperatureValue.text = it.temperature_2m_max.toString()
+                    tvMinTemperatureValue.text = it.temperature_2m_min.toString()
+                    tvRainSumValue.text = it.rain_sum.toString()
+                    tvMaxWindSpeedValue.text = it.wind_speed_10m_max.toString()
+                    tvUVIndexValue.text = it.uv_index_clear_sky_max.toString()
+                    tvMaxPrecipitationProbValue.text = it.precipitation_probability_max.toString()
+                }
+            }
+        }
     }
 }

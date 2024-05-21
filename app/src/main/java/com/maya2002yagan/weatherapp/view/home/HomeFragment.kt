@@ -1,41 +1,47 @@
 package com.maya2002yagan.weatherapp.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maya2002yagan.weatherapp.R
 import com.maya2002yagan.weatherapp.adapter.WeatherAdapter
 import com.maya2002yagan.weatherapp.databinding.FragmentHomeBinding
+import com.maya2002yagan.weatherapp.model.DailyWeather
+import com.maya2002yagan.weatherapp.util.ApplicationViewModelFactory
+import com.maya2002yagan.weatherapp.util.convertToDailyWeather
 import com.maya2002yagan.weatherapp.viewmodel.MainViewModel
 
 class HomeFragment : Fragment() {
-    private lateinit var viewModel : MainViewModel
-    private lateinit var binding : FragmentHomeBinding
-    private var adapter = WeatherAdapter(mutableListOf()){
-        findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: MainViewModel by viewModels {
+        ApplicationViewModelFactory(requireActivity().application)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.rvWeatherRecyclerView.adapter = adapter
         binding.rvWeatherRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModel.getDataFromAPI()
         setObservers()
-        // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun setObservers(){
+    private fun setObservers() {
         viewModel.weatherData.observe(viewLifecycleOwner) { list ->
+            val adapter = WeatherAdapter(mutableListOf()) { position ->
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(convertToDailyWeather(list)[position]))
+            }
+            binding.rvWeatherRecyclerView.adapter = adapter
             list?.let {
                 adapter.updateList(it)
                 binding.tvTemperature.text = "${it.current.temperature_2m}${it.current_units.temperature_2m}"
@@ -46,17 +52,19 @@ class HomeFragment : Fragment() {
                 binding.tvWindDirection.text = "${it.current.wind_direction_10m}${it.current_units.wind_direction_10m}"
                 binding.tvWindSpeed.text = "${it.current.wind_speed_10m}${it.current_units.wind_speed_10m}"
             }
+            //adapter.updateList(list)
+            viewModel.insertAll(listOf(list.daily))
         }
 
-        viewModel.weatherLoading.observe(viewLifecycleOwner){ loading ->
-            if(loading)
+        viewModel.weatherLoading.observe(viewLifecycleOwner) { loading ->
+            if (loading)
                 binding.pbLoading.visibility = View.VISIBLE
             else
                 binding.pbLoading.visibility = View.GONE
         }
 
-        viewModel.weatherError.observe(viewLifecycleOwner) {error ->
-            if(error)
+        viewModel.weatherError.observe(viewLifecycleOwner) { error ->
+            if (error)
                 binding.tvError.visibility = View.VISIBLE
             else
                 binding.tvError.visibility = View.GONE

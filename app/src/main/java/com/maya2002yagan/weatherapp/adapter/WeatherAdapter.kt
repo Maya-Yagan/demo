@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maya2002yagan.weatherapp.databinding.ItemWeatherBinding
 import com.maya2002yagan.weatherapp.model.DailyWeather
 import com.maya2002yagan.weatherapp.model.WeatherResponse
+import com.maya2002yagan.weatherapp.util.convertToDailyWeather
 
 class WeatherAdapter(private val list : MutableList<DailyWeather>, private val onClick : (position : Int) -> Unit) : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
     inner class WeatherViewHolder(private val binding : ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -28,25 +29,6 @@ class WeatherAdapter(private val list : MutableList<DailyWeather>, private val o
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(list[position], position)
-    }
-
-    private fun convertToDailyWeather(weatherResponse: WeatherResponse): List<DailyWeather> {
-        val dailyWeather = mutableListOf<DailyWeather>()
-        val daily = weatherResponse.daily
-        for (i in daily.time.indices) {
-            val entry = DailyWeather(
-                time = daily.time,
-                weather_code= daily.weather_code,
-                temperature_2m_max = daily.temperature_2m_max,
-                temperature_2m_min = daily.temperature_2m_min,
-                precipitation_probability_max = daily.precipitation_probability_max,
-                uv_index_clear_sky_max = daily.uv_index_clear_sky_max,
-                rain_sum = daily.rain_sum,
-                wind_speed_10m_max = daily.wind_speed_10m_max
-            )
-            dailyWeather.add(entry)
-        }
-        return dailyWeather
     }
 
     fun updateList(newList: WeatherResponse){
