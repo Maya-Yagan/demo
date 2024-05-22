@@ -16,6 +16,7 @@ data class CurrentWeather(
     val cloud_cover: Int,
     val wind_speed_10m: Double,
     val wind_direction_10m: Int,
+    val is_day: Int
 )
 
 @Parcelize
@@ -37,7 +38,7 @@ data class DailyWeather(
     @ColumnInfo(name = "precipitation_probability_max")
     val precipitation_probability_max: List<Int>,
     @ColumnInfo(name = "wind_speed_10m_max")
-    val wind_speed_10m_max: List<Double>
+    val wind_speed_10m_max: List<Double>,
 ) : Parcelable
 
 @Entity(tableName = "WeatherResponse")
@@ -52,7 +53,7 @@ data class WeatherResponse(
     @ColumnInfo(name = "current")
     val current: CurrentWeather,
     @ColumnInfo(name = "daily_units")
-    val daily_units: WeatherUnits,
+    val daily_units: DailyUnits,
     @ColumnInfo(name = "daily")
     var daily: DailyWeather,
     @ColumnInfo(name = "timezone")
@@ -69,5 +70,16 @@ data class WeatherUnits(
     val cloud_cover: String,
     val wind_speed_10m: String,
     val wind_direction_10m: String,
+)
+
+data class DailyUnits(
+    val time: String,
+    val weather_code: String,
+    val temperature_2m_max: String,
+    val temperature_2m_min: String,
+    val uv_index_clear_sky_max: String,
+    val rain_sum: String,
+    val precipitation_probability_max: String,
+    val wind_speed_10m_max: String,
 )
 

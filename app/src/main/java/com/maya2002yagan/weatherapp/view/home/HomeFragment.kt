@@ -17,6 +17,7 @@ import com.maya2002yagan.weatherapp.databinding.FragmentHomeBinding
 import com.maya2002yagan.weatherapp.model.DailyWeather
 import com.maya2002yagan.weatherapp.util.ApplicationViewModelFactory
 import com.maya2002yagan.weatherapp.util.convertToDailyWeather
+import com.maya2002yagan.weatherapp.util.getWeatherIcon
 import com.maya2002yagan.weatherapp.viewmodel.MainViewModel
 
 class HomeFragment : Fragment() {
@@ -38,12 +39,14 @@ class HomeFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.weatherData.observe(viewLifecycleOwner) { list ->
-            val adapter = WeatherAdapter(mutableListOf()) { position ->
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(convertToDailyWeather(list)[position]))
+            val adapter = WeatherAdapter(requireContext() , mutableListOf()) { position ->
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(position)
+                findNavController().navigate(action)
             }
             binding.rvWeatherRecyclerView.adapter = adapter
             list?.let {
                 adapter.updateList(it)
+                binding.ivWeatherImage.setImageResource(getWeatherIcon(it.current.weather_code, it.current.is_day, requireContext()))
                 binding.tvTemperature.text = "${it.current.temperature_2m}${it.current_units.temperature_2m}"
                 binding.tvTimeZone.text = it.timezone
                 binding.tvCloudCover.text = "${it.current.cloud_cover}${it.current_units.cloud_cover}"
@@ -52,15 +55,24 @@ class HomeFragment : Fragment() {
                 binding.tvWindDirection.text = "${it.current.wind_direction_10m}${it.current_units.wind_direction_10m}"
                 binding.tvWindSpeed.text = "${it.current.wind_speed_10m}${it.current_units.wind_speed_10m}"
             }
-            //adapter.updateList(list)
             viewModel.insertAll(listOf(list.daily))
         }
 
         viewModel.weatherLoading.observe(viewLifecycleOwner) { loading ->
-            if (loading)
+            if (loading) {
                 binding.pbLoading.visibility = View.VISIBLE
-            else
+                binding.ivWeatherImage.visibility = View.GONE
+                binding.tvTimeZone.visibility = View.GONE
+                binding.cvWeatherDetailsCard.visibility = View.GONE
+                binding.tvWeatherTodayText.visibility = View.GONE
+            }
+            else {
                 binding.pbLoading.visibility = View.GONE
+                binding.ivWeatherImage.visibility = View.VISIBLE
+                binding.tvTimeZone.visibility = View.VISIBLE
+                binding.cvWeatherDetailsCard.visibility = View.VISIBLE
+                binding.tvWeatherTodayText.visibility = View.VISIBLE
+            }
         }
 
         viewModel.weatherError.observe(viewLifecycleOwner) { error ->

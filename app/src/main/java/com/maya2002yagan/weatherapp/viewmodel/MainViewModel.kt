@@ -54,5 +54,6 @@ class MainViewModel(application : Application) : AndroidViewModel(application) {
 
     fun findByID(id: Int) = viewModelScope.launch {
         weather.value?.daily = weatherDao?.findByID(id)!!
+        Log.d("POTATO", "findByID called with id: $id")
     }
 }

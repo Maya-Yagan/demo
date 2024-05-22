@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="WeatherDetails"
-            app:argType="com.maya2002yagan.weatherapp.model.DailyWeather" />
+            app:argType="integer" />
     </fragment>
 </navigation>
