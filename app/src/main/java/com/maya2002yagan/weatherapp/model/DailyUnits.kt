@@ -3,14 +3,14 @@ package com.maya2002yagan.weatherapp.model
 /**
  * This class stores the weather units for DailyWeather class
  *
- * @property time The time of the weather data. Format: ISO 8601.
- * @property weatherCode The weather code. Unit: WMO code.
- * @property maxTemperature2m The maximum temperature at 2 meters above ground level. Unit: Celsius (°C).
- * @property minTemperature2m The minimum temperature at 2 meters above ground level. Unit: Celsius (°C).
- * @property maxUvIndexClearSky The maximum UV index under clear sky conditions.
- * @property rainSum The sum of rain. Unit: Millimeters (mm).
- * @property precipitationProbabilityMax The maximum precipitation probability. Unit: Percentage (%).
- * @property maxWindSpeed10m The maximum wind speed at 10 meters above ground level. Unit: Kilometers per hour (km/h).
+ * @param time The time of the weather data. Format: ISO 8601.
+ * @param weatherCode The weather code. Unit: WMO code.
+ * @param maxTemperature2m The maximum temperature at 2 meters above ground level. Unit: Celsius (°C).
+ * @param minTemperature2m The minimum temperature at 2 meters above ground level. Unit: Celsius (°C).
+ * @param maxUvIndexClearSky The maximum UV index under clear sky conditions.
+ * @param rainSum The sum of rain. Unit: Millimeters (mm).
+ * @param precipitationProbabilityMax The maximum precipitation probability. Unit: Percentage (%).
+ * @param maxWindSpeed10m The maximum wind speed at 10 meters above ground level. Unit: Kilometers per hour (km/h).
  */
 data class DailyUnits(
     val time: String, // unit: iso8601
