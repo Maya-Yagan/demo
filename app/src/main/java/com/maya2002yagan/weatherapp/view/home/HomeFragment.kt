@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
      */
     private fun setObservers() {
         viewModel.weatherData.observe(viewLifecycleOwner) { list ->
-            val adapter = WeatherAdapter(requireContext() , mutableListOf()) { position ->
-                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(position)
+            val adapter = WeatherAdapter(requireContext(), mutableListOf()) { position ->
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(position, list.daily)
                 findNavController().navigate(action)
             }
             binding.rvWeatherRecyclerView.adapter = adapter

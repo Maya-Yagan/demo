@@ -16,6 +16,7 @@ import com.huawei.hms.ads.InterstitialAd
 import com.huawei.hms.ads.banner.BannerView
 import com.maya2002yagan.weatherapp.R
 import com.maya2002yagan.weatherapp.databinding.FragmentDetailBinding
+import com.maya2002yagan.weatherapp.model.DailyWeather
 import com.maya2002yagan.weatherapp.util.ApplicationViewModelFactory
 import com.maya2002yagan.weatherapp.util.getWeatherIcon
 import com.maya2002yagan.weatherapp.viewmodel.MainViewModel
@@ -57,24 +58,26 @@ class DetailFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         loadBannerAd()
         viewModel.getDataFromAPI(defaultLatitude, defaultLongitude)
-        initUI()
+        val selectedDayIndex = args.selectedDayIndex
+        val dailyWeather = args.dailyWeather
+        initUI(selectedDayIndex, dailyWeather)
         return binding.root
     }
 
     /**
      * Initializes the user interface and observes ViewModel data for updates.
      */
-    private fun initUI(){
+    private fun initUI(index: Int, dailyWeather: DailyWeather){
         viewModel.weatherData.observe(viewLifecycleOwner){ weather ->
             weather?.daily?.let {
                 with(binding){
-                    tvMaxTemperatureValue.text = it.temperature_2m_max[args.WeatherDetails].toString() + weather.daily_units.temperature_2m_max
-                    tvMinTemperatureValue.text = it.temperature_2m_min[args.WeatherDetails].toString() + weather.daily_units.temperature_2m_min
-                    tvRainSumValue.text = it.rain_sum[args.WeatherDetails].toString() + weather.daily_units.rain_sum
-                    tvMaxWindSpeedValue.text = it.wind_speed_10m_max[args.WeatherDetails].toString() + weather.daily_units.wind_speed_10m_max
-                    tvUVIndexValue.text = it.uv_index_clear_sky_max[args.WeatherDetails].toString()
-                    tvMaxPrecipitationProbValue.text = it.precipitation_probability_max[args.WeatherDetails].toString() + weather.daily_units.precipitation_probability_max
-                    ivWeatherImageDetail.setImageResource(getWeatherIcon(it.weather_code[args.WeatherDetails], 1, requireContext()))
+                    tvMaxTemperatureValue.text = dailyWeather.temperature_2m_max[index].toString() + weather.daily_units.temperature_2m_max
+                    tvMinTemperatureValue.text = dailyWeather.temperature_2m_min[index].toString() + weather.daily_units.temperature_2m_min
+                    tvRainSumValue.text = dailyWeather.rain_sum[index].toString() + weather.daily_units.rain_sum
+                    tvMaxWindSpeedValue.text = dailyWeather.wind_speed_10m_max[index].toString() + weather.daily_units.wind_speed_10m_max
+                    tvUVIndexValue.text = dailyWeather.uv_index_clear_sky_max[index].toString()
+                    tvMaxPrecipitationProbValue.text = dailyWeather.precipitation_probability_max[index].toString() + weather.daily_units.precipitation_probability_max
+                    ivWeatherImageDetail.setImageResource(getWeatherIcon(dailyWeather.weather_code[index], 1, requireContext()))
                 }
             }
         }

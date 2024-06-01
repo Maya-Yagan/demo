@@ -33,9 +33,6 @@ class MainViewModel(application : Application) : AndroidViewModel(application) {
     // LiveData for indicating if weather data is currently loading
     val weatherLoading = MutableLiveData<Boolean>()
 
-    // LiveData for holding weather response data
-    val weather = MutableLiveData<WeatherResponse>()
-
     // Instance of the WeatherDatabase
     private var weatherDatabase : WeatherDatabase? = null
 
